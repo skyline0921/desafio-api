@@ -11,6 +11,8 @@ class SaleItemTop10(APIView):
         start_date = request.query_params.get("start_date")
         final_date = request.query_params.get("final_date")
 
+        order_by = request.query_params.get("order_by", "quantidade")
+
         start_date = parse_date(start_date) if start_date else None
         final_date = parse_date(final_date) if final_date else None
 
@@ -32,6 +34,16 @@ class SaleItemTop10(APIView):
         if final_date is None:
             final_date = last_date
 
+        if order_by == "valor":
+            ordering = "-sale_value"
+        elif order_by == "quantidade":
+            ordering = "-sale_quantity"
+        else:
+            return Response(
+                {"erro": "Filtro inválido. Use 'quantidade' ou 'valor'."},
+                status=400
+            )
+
         
         sale_calc = SaleItem.objects.filter(
             sale__date__date__gte=start_date,
@@ -41,7 +53,7 @@ class SaleItemTop10(APIView):
         ).annotate(
             sale_quantity=Sum("quantity"),
             sale_value=Sum(F("quantity") * F("unit_price"))
-        ).order_by("-sale_quantity")[:10]
+        ).order_by(ordering)[:10]
 
         return Response({
             "sales":[],
