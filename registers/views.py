@@ -1,57 +1,33 @@
-from rest_framework import generics
+from rest_framework import viewsets
 from .models import Mark, Product, Colection, Client, Company, PaymentMethod
 from .serializers import MarkSerializer, ProductSerializer, ColectionSerializer, ClientSerializer, CompanySerializer, PaymentMethodSerializer
 
 # Create your views here.
 
-class MarkList(generics.ListCreateAPIView):
+class MarkList(viewsets.ModelViewSet):
     queryset = Mark.objects.all()
     serializer_class = MarkSerializer
 
-class MarkDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Mark.objects.all()
-    serializer_class = MarkSerializer
-
-class ProductList(generics.ListCreateAPIView):
+class ProductList(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
-class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-
-class ColectionList(generics.ListCreateAPIView):
+class ColectionList(viewsets.ModelViewSet):
     queryset = Colection.objects.all()
     serializer_class = ColectionSerializer
 
-class ColectionDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Colection.objects.all()
-    serializer_class = ColectionSerializer
-
-class ClientList(generics.ListCreateAPIView):
+class ClientList(viewsets.ModelViewSet):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
 
-class ClientDetail(generics.RetrieveUpdateDestroyAPIView):
+class ClientList(viewsets.ModelViewSet):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
 
-class ClientList(generics.ListCreateAPIView):
-    queryset = Client.objects.all()
-    serializer_class = ClientSerializer
-
-class CompanyDetail(generics.RetrieveUpdateDestroyAPIView):
+class CompanyList(viewsets.ModelViewSet):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
 
-class CompanyList(generics.ListCreateAPIView):
-    queryset = Company.objects.all()
-    serializer_class = CompanySerializer
-
-class PaymentMethodDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = PaymentMethod.objects.all()
-    serializer_class = PaymentMethodSerializer
-
-class PaymentMethodList(generics.ListCreateAPIView):
+class PaymentMethodList(viewsets.ModelViewSet):
     queryset = PaymentMethod.objects.all()
     serializer_class = PaymentMethodSerializer
