@@ -4,9 +4,9 @@ from .serializers import SaleItemSerializer, SaleSerializer
 from invoicing import SaleItem
 # Create your views here.
 
-class SaleItemList(viewsets.ModelViewSet):
+class SaleItemViewsets(viewsets.ModelViewSet):
     queryset = SaleItem.objects.value()
     serializer_class = SaleItemSerializer    
-class SaleList(viewsets.ModelViewSet):
+class SaleViewsets(viewsets.ModelViewSet):
     queryset = Sale.objects.all()
     serializer_class = SaleSerializer

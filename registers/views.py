@@ -4,30 +4,26 @@ from .serializers import MarkSerializer, ProductSerializer, ColectionSerializer,
 
 # Create your views here.
 
-class MarkList(viewsets.ModelViewSet):
+class MarkViewSet(viewsets.ModelViewSet):
     queryset = Mark.objects.all()
     serializer_class = MarkSerializer
 
-class ProductList(viewsets.ModelViewSet):
+class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
-class ColectionList(viewsets.ModelViewSet):
+class ColectionViewSet(viewsets.ModelViewSet):
     queryset = Colection.objects.all()
     serializer_class = ColectionSerializer
 
-class ClientList(viewsets.ModelViewSet):
+class ClientViewSet(viewsets.ModelViewSet):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
 
-class ClientList(viewsets.ModelViewSet):
-    queryset = Client.objects.all()
-    serializer_class = ClientSerializer
-
-class CompanyList(viewsets.ModelViewSet):
+class CompanyViewSet(viewsets.ModelViewSet):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
 
-class PaymentMethodList(viewsets.ModelViewSet):
+class PaymentMethodViewSet(viewsets.ModelViewSet):
     queryset = PaymentMethod.objects.all()
     serializer_class = PaymentMethodSerializer
