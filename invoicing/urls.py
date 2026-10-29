@@ -1,7 +1,8 @@
-from django.urls import path
+from rest_framework.routers import DefaultRouter
 from .views import SaleViewsets, SaleItemViewsets
 
-urlpatterns = [
-    path("sale/", SaleViewsets.as_view()),
-    path("sale-item/", SaleItemViewsets.as_view())
-]
+router = DefaultRouter()
+router.register("sales", SaleViewsets, basename="sales")
+router.register("sale-items", SaleItemViewsets, basename="sale-items")
+
+urlpatterns = router.urls
