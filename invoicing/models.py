@@ -3,6 +3,10 @@ from django.conf import settings
 from registers.models import Company, Client, PaymentMethod, Product
 
 class Sale(models.Model):
+    class Status(models.TextChoices):
+        PENDING = "PENDENTE", "Pendente"
+        FINISHED = "FINALIZADO", "Finalizado"
+
     company = models.ForeignKey(
         Company,
         on_delete=models.PROTECT,
@@ -27,6 +31,12 @@ class Sale(models.Model):
         PaymentMethod,
         on_delete=models.PROTECT,
         related_name="sales"
+    )
+
+    status = models.CharField(
+        max_length=10,
+        choices=Status.choices,
+        default=Status.PENDING
     )
 
 class SaleItem(models.Model):

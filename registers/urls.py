@@ -1,17 +1,21 @@
-from django.urls import path
-from .views import MarkList, MarkDetail, ProductList, ProductDetail, ColectionList, ColectionDetail , ClientList, ClientDetail, CompanyDetail, CompanyList, PaymentMethodDetail, PaymentMethodList
 
-urlpatterns = [
-    path("marks/", MarkList.as_view()),
-    path("marks/<int:pk>/", MarkDetail.as_view()),
-    path("products/", ProductList.as_view()),
-    path("products/<int:pk>/", ProductDetail.as_view()),
-    path("colections/", ColectionList.as_view()),
-    path("colections/<int:pk>/", ColectionDetail.as_view()),
-    path("clients/", ClientList.as_view()),
-    path("clients/<int:pk>/", ClientDetail.as_view()),
-    path("companys/", CompanyList.as_view()),
-    path("companys/<int:pk>/", CompanyDetail.as_view()),
-    path("paymentMethods/", PaymentMethodList.as_view()),
-    path("paymentMethods/<int:pk>/", PaymentMethodDetail.as_view())
-]
+from rest_framework.routers import DefaultRouter
+from .views import (
+    MarkViewSet,
+    ProductViewSet,
+    ColectionViewSet,
+    ClientViewSet,
+    CompanyViewSet,
+    PaymentMethodViewSet,
+)
+
+router = DefaultRouter()
+
+router.register("marks", MarkViewSet, basename="mark")
+router.register("products", ProductViewSet, basename="product")
+router.register("colections", ColectionViewSet, basename="colection")
+router.register("clients", ClientViewSet, basename="client")
+router.register("companys", CompanyViewSet, basename="company")
+router.register("paymentMethods", PaymentMethodViewSet, basename="payment-method")
+
+urlpatterns = router.urls
