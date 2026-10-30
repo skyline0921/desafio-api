@@ -73,6 +73,17 @@ class SaleItemViewsets(viewsets.ModelViewSet):
             )
     
             return super().update(request, *args, **kwargs)
+
+    def partial_update(self, request, *args, **kwargs):
+        saleItem = self.get_object()
+
+        if saleItem.sale.status == Sale.Status.FINISHED:
+          return Response(
+            {"detail": "Não é possível alterar itens de uma venda finalizada."},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+        return super().partial_update(request, *args, **kwargs)
                     
     def destroy(self, request, *args, **kwargs):
             saleItem = self.get_object()
