@@ -7,6 +7,8 @@ from .serializers import SaleItemSerializer, SaleSerializer
 class SaleViewsets(viewsets.ModelViewSet):
     queryset = Sale.objects.all()
     serializer_class = SaleSerializer
+
+    
     @action(detail=True, methods=["post"])
     def finalize(self, request, pk=None):
         sale = self.get_object()

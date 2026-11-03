@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import SaleItem, Sale
-
+from django.db import models
 class SaleItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = SaleItem
@@ -35,8 +35,22 @@ class SaleSerializer(serializers.ModelSerializer):
         for item_data in items_data:
             item_id = item_data.get("id")
 
-        if item_id:
-            item = SaleItem.objects.get(id=item_id, sale=instance)
+            if item_id:
+                item = SaleItem.objects.filter(id=item_id, sale=instance).first()
+
+                if item:
+                    item.quantity = item_data["quantity"]
+                    item.save()
+                else:
+                    SaleItem.objects.create(
+                        sale=instance,
+                        **item_data
+                    )
+            else:
+                SaleItem.objects.create(
+                    sale=instance,
+                    **item_data
+                )
 
         for field, value in validated_data.items():
             setattr(instance, field, value)
@@ -44,4 +58,3 @@ class SaleSerializer(serializers.ModelSerializer):
         instance.save()
 
         return instance
-    
