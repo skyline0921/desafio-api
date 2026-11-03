@@ -1,4 +1,4 @@
-from rest_framework import viewsets, status
+from rest_framework import viewsets, status, serializers
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from .models import Sale, SaleItem
@@ -94,3 +94,13 @@ class SaleItemViewsets(viewsets.ModelViewSet):
                     status=status.HTTP_400_BAD_REQUEST
             )
             return super().destroy(request, *args, **kwargs)
+
+    def perform_create(self, serializer):
+        sale = serializer.validated_data["sale"]
+
+        if sale.status == Sale.Status.FINISHED:
+            raise serializers.ValidationError(
+                {"detail": "Não é possível adicionar itens a uma venda finalizada"}
+            )
+
+        serializer.save()
