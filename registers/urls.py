@@ -7,7 +7,10 @@ from .views import (
     ClientViewSet,
     CompanyViewSet,
     PaymentMethodViewSet,
+    UserCreateView,
+    LoginView
 )
+from django.urls import path
 
 router = DefaultRouter()
 
@@ -17,5 +20,8 @@ router.register("colections", ColectionViewSet, basename="colection")
 router.register("clients", ClientViewSet, basename="client")
 router.register("companys", CompanyViewSet, basename="company")
 router.register("paymentMethods", PaymentMethodViewSet, basename="payment-method")
+router.register("register", UserCreateView, basename="register")
 
-urlpatterns = router.urls
+urlpatterns = router.urls + [
+    path("login/", LoginView.as_view(), name="login"),
+]
