@@ -20,8 +20,8 @@ router.register("colections", ColectionViewSet, basename="colection")
 router.register("clients", ClientViewSet, basename="client")
 router.register("companys", CompanyViewSet, basename="company")
 router.register("paymentMethods", PaymentMethodViewSet, basename="payment-method")
-router.register("register", UserCreateView, basename="register")
 
 urlpatterns = router.urls + [
+    path("register/", UserCreateView.as_view(), name="register"),
     path("login/", LoginView.as_view(), name="login"),
 ]
